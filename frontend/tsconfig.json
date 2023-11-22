@@ -1,5 +1,8 @@
 {
   "files": [],
+  "compilerOptions": {
+    "useDefineForClassFields": true
+  },
   "references": [
     {
       "path": "./tsconfig.node.json"

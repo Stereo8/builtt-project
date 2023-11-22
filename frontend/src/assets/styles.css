@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body, #app {
+    min-height: 100vh;
+}
+
+#app {
+    @apply flex items-center justify-center;
+}

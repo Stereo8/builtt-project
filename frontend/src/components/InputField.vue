@@ -3,7 +3,7 @@ import {computed, ref} from "vue";
 
 const props = defineProps<{ placeholder: string, label: string, type?: string, modelValue: string }>()
 const emits = defineEmits<{
-  (e: 'update', value: string): void
+  (e: 'update', value: string): void,
 }>()
 
 const hasFocus = ref(false)
@@ -20,7 +20,8 @@ const labelDisplay = computed(() => (props.modelValue ? props.label : (hasFocus.
              :type="type || 'text'"
              required
              @focus="hasFocus = true"
-             @blur="hasFocus = false"/>
+             @blur="hasFocus = false"
+             @keyup.enter="emits('submit')"/>
       <span class="highlight"></span>
       <span class="bar"></span>
       <label>{{ labelDisplay }}</label>

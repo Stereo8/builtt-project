@@ -7,11 +7,15 @@ body, #app {
 }
 
 #app {
-    @apply flex items-center justify-center;
+    @apply flex flex-col justify-start pt-16 items-center;
     font-family: 'Arial', sans-serif;
+    width: 100%;
 }
 
 sub, sup { font-size: 50%; line-height: 0; position: relative; vertical-align: baseline; }
 sup { top: 0.05em; vertical-align: super; @apply -ml-1;}
 sub { bottom: -0.25em; vertical-align: sub;}
 
+div, p, h1, h2, h3, h4, h5, h6 {
+    cursor: default;
+}

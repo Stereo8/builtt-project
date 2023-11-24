@@ -36,8 +36,10 @@ const authenticate = async () => {
     method: 'POST',
     body: JSON.stringify({email: email.value, password: password.value})
   }
+
   loadingIndicator.value = true
-  const response = await window.fetch(`${import.meta.env.VITE_API_URL}/auth/login`, requestConfig)
+    const response = await window.fetch(`${import.meta.env.VITE_API_URL}/auth/login`, requestConfig)
+
   if (response.ok) {
     const token = response.json().then((res) => res.token || undefined)
 

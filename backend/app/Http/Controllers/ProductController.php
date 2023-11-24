@@ -9,6 +9,6 @@ class ProductController extends Controller
 {
     public function productsList()
     {
-        return response()->json(Product::all());
+        return response()->json(['status' => 'ok', 'data' => ['products' => Product::all()]]);
     }
 }

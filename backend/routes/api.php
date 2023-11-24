@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'auth'], function () {
    Route::post('/login', [LoginController::class, 'authenticate']);
 });
+
+Route::middleware('auth:sanctum')->get('/products', [ProductController::class, 'productsList']);

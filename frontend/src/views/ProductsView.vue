@@ -36,6 +36,7 @@ if (response.status === 401) {
 
 <template>
   <ProductTile v-for="product in products"
+               class="m-4"
                :name="product.name" :price="product.price"
                :product-image-file-name="product.productImageFileName"></ProductTile>
 </template>

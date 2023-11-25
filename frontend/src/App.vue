@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {RouterView} from 'vue-router'
+import {RouterView, useRouter} from 'vue-router'
 import spinner from './assets/black-spinner.svg'
 import {useStore} from "@/stores/store";
 import LoggedInLayout from "@/views/layouts/LoggedInLayout.vue";
@@ -7,6 +7,7 @@ import {ref} from "vue";
 import {Observer} from 'mobx-vue-lite';
 
 const store = useStore()
+const router = useRouter()
 
 </script>
 
@@ -16,7 +17,7 @@ const store = useStore()
       <template #default>
 
         <Observer>
-          <LoggedInLayout v-if="store.auth.token">
+          <LoggedInLayout v-if="store.auth.token && router.currentRoute.value.path !== '/'">
             <RouterView/>
           </LoggedInLayout>
           <RouterView v-else></RouterView>

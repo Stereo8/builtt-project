@@ -36,13 +36,18 @@ if (response.status === 401) {
 
 <template>
   <div class="mt-6">
-    <div class="mb-1"><span class="font-bold text-xl leading-normal tracking-tight mr-1">Svi proizvodi</span>  <span class="leading-snug text-gray-400">{{ products.length }} proizvoda</span></div>
-    <div class="flex flex-row flex-wrap justify-center">
-      <ProductTile v-for="product in products"
-                   class="m-4"
-                   :name="product.name" :price="product.price"
-                   :product-image-file-name="product.productImageFileName" :id="product.id"></ProductTile>
+    <div class="mb-1"><span class="font-bold text-xl leading-normal tracking-tight mr-1">Svi proizvodi</span> <span
+        class="leading-snug text-gray-400">{{ products.length }} proizvoda</span></div>
+
+    <div class="flex justify-center flex-row w-full">
+      <div class="flex flex-row flex-wrap justify-start">
+        <ProductTile v-for="product in products"
+                     class="m-4"
+                     :name="product.name" :price="product.price"
+                     :product-image-file-name="product.productImageFileName" :id="product.id"></ProductTile>
+      </div>
     </div>
+
   </div>
 
 </template>

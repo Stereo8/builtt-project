@@ -12,7 +12,7 @@ const router = useRouter()
 </script>
 
 <template>
-  <div class="flex justify-center items-center w-full md:px-16 px-4">
+  <div class="flex justify-center items-center w-full md:px-8 lg:px-20 px-4">
     <Suspense>
       <template #default>
 

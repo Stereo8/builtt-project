@@ -4,19 +4,6 @@ import {useStore} from "@/stores/store";
 import {computed} from "vue";
 
 const store = useStore()
-const ukupno = computed(() => {
-  return store.value.basket.reduce((acc, curr) => {
-    return acc + (curr.price * curr.quantity)
-  }, 0)
-})
-const usteda = computed(() => {
-  return store.value.basket.reduce((acc, curr) => {
-    return acc + (curr.discount * curr.quantity)
-  }, 0)
-})
-const zaIsplatu = computed(() => {
-  return ukupno.value - usteda.value
-})
 </script>
 
 <template>
@@ -26,11 +13,11 @@ const zaIsplatu = computed(() => {
       <div class="border-b border-grey-400 pb-4 mb-4">
         <div class="w-full flex justify-between mb-2">
           <span>Ukupno</span>
-          <span class="text-lg">{{ ukupno }} <sup>RSD</sup></span>
+          <span class="text-lg">{{ store.ukupno }} <sup>RSD</sup></span>
         </div>
-        <div class="w-full flex justify-between mb-2">
+        <div v-if="store.usteda > 0" class="w-full flex justify-between mb-2">
           <span>Ušteda</span>
-          <span class="text-lg">-{{ usteda }} <sup>RSD</sup></span>
+          <span class="text-lg">-{{ store.usteda }} <sup>RSD</sup></span>
         </div>
         <div class="w-full flex justify-between">
           <span>Isporuka Daily Express*</span>
@@ -40,7 +27,10 @@ const zaIsplatu = computed(() => {
       <div>
         <div class="w-full flex justify-between">
           <span>Ukupno za isplatu</span>
-          <span class="text-lg">{{ zaIsplatu }}  <sup>RSD</sup></span>
+          <span class="text-lg">{{ store.zaUplatu }}  <sup>RSD</sup></span>
+        </div>
+        <div class="w-full mt-1">
+          <span class="text-xs leading-3 tracking-tight">Cena je sa uključenim PDV-om</span>
         </div>
       </div>
     </div>

@@ -50,7 +50,10 @@ const addToBasket = () => {
       </div>
 
       <div class="font-bold text-lg mt-4">{{ props.name }}</div>
-      <div class="text-2xl leading-loose">{{ props.price }} <sup class="">RSD</sup></div>
+      <div class="text-2xl leading-loose">{{ props.price - props.discount }} <sup>RSD</sup></div>
+      <div v-if="props.discount" class="-mt-4 text-orange-700"><span class="text-base leading-loose line-through mr-2">{{
+          props.price
+        }}</span><sup>RSD</sup></div>
     </div>
   </div>
 </template>

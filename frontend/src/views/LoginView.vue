@@ -31,7 +31,8 @@ const showError = (message) => {
 const authenticate = async () => {
   const requestConfig: RequestInit = {
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
     },
     method: 'POST',
     body: JSON.stringify({email: email.value, password: password.value})

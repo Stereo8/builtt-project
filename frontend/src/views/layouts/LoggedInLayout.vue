@@ -11,9 +11,9 @@ const router = useRouter()
 
 <template>
   <Observer>
-    <div class="fixed top-0 w-full h-16 bg-zinc-100 flex items-center justify-between">
+    <div class="fixed top-0 w-full h-16 bg-zinc-100 flex items-center justify-between z-[100]">
       <img :src="BrandLogo" alt="Builtt" class="w-20 h-10 ml-8 cursor-pointer" @click="router.push('/proizvodi')">
-      <div class="relative mr-8 w-6 h-6 " @click="router.push('/basket')">
+      <div class="relative mr-8 w-6 h-6 " @click="router.push('/korpa')">
         <img :src="BlackBasketIcon" alt="Cart" class="w-6 h-6">
         <div class="absolute w-6 h-6 flex justify-center items-center top-[0.2rem] text-[8pt] cursor-pointer">{{
             store.basket.reduce((acc, curr) => acc + curr.quantity, 0)

@@ -16,7 +16,10 @@ const router = createRouter({
       // this generates a separate chunk (ProductsView.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/ProductsView.vue')
-    }
+    },
+    {path: '/korpa',
+    name: 'basket',
+    component: () => import('../views/BasketView.vue')}
   ]
 })
 

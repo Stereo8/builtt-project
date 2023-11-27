@@ -1,8 +1,13 @@
+version: '3'
 services:
-  # Create frontend container
-  frontend: # Name of our service
-    build: ./frontend/Dockerfile # path to dockerfile
-    ports: # Port binding to host from docker container
-      - "5137:5137" # Bind port 3000 of host to 3000 of container
-    container_name: frontend-docker
-    restart: always # What to do if container crashes
+  web:
+    build: ./frontend
+    environment:
+      NODE_ENV: production
+      VITE_API_URL: http://backend:8000
+    ports:
+      - "5137:5137"
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"

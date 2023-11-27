@@ -55,11 +55,16 @@ export const useStore = createGlobalObservable(() => {
             },
             async plati() {
                 this.paymentError = false
-                const payload=  JSON.stringify(this.basket.map((p) => { return {id: p.id, quantity: p.quantity} }));
+                const payload=  JSON.stringify({
+                    basketContents: this.basket.map((p) => {
+                        return {id: p.id, quantity: p.quantity}
+                    })
+                });
                 const requestConfig: RequestInit = {
                     headers: {
                         'Content-Type': 'application/json',
-                        'Accept': 'application/json'
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${this.auth.token}`
                     },
                     method: 'POST',
                     body: payload
@@ -68,8 +73,8 @@ export const useStore = createGlobalObservable(() => {
                 try {
                     const response = await fetch(`${import.meta.env.VITE_API_URL}/order`, requestConfig).then(r => r.json())
                     if (response.status === 'ok') {
-                        const orderId = response.data.orderId
-                        await router.push(`/order/${orderId}`)
+                        const orderId = response.data.id
+                        // await router.push(`/order/${orderId}`)
                     } else {
                         this.paymentError = true
                     }

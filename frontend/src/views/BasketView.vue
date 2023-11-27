@@ -11,8 +11,8 @@ import BasketItem from "@/components/BasketItem.vue";
 const store = useStore()
 const router = useRouter()
 
-if (!store.value.auth.token) {
-  await router.push('/')
+if (store.value.auth.token === '') {
+  router.push('/')
 }
 </script>
 

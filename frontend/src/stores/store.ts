@@ -1,8 +1,12 @@
 import {createGlobalObservable, useLocalObservable} from 'mobx-vue-lite'
 import type {Product, WithQuantity} from "@/types/product";
+import {useRouter} from "vue-router";
+
 
 export const useStore = createGlobalObservable(() => {
     return useLocalObservable(() => {
+        const router = useRouter()
+
         return {
             auth: {
                 token: ''
@@ -21,6 +25,7 @@ export const useStore = createGlobalObservable(() => {
             get zaUplatu() {
                 return this.ukupno - this.usteda
             },
+            paymentError: false,
             setAuthToken(token) {
                 this.auth.token = token
             },
@@ -46,6 +51,30 @@ export const useStore = createGlobalObservable(() => {
                 const index = this.basket.findIndex((p) => p.id === id)
                 if (this.basket[index]) {
                     this.basket[index].quantity -= 1
+                }
+            },
+            async plati() {
+                this.paymentError = false
+                const payload=  JSON.stringify(this.basket.map((p) => { return {id: p.id, quantity: p.quantity} }));
+                const requestConfig: RequestInit = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    method: 'POST',
+                    body: payload
+                }
+
+                try {
+                    const response = await fetch(`${import.meta.env.VITE_API_URL}/order`, requestConfig).then(r => r.json())
+                    if (response.status === 'ok') {
+                        const orderId = response.data.orderId
+                        await router.push(`/order/${orderId}`)
+                    } else {
+                        this.paymentError = true
+                    }
+                } catch (e) {
+                    this.paymentError = true
                 }
             }
         }

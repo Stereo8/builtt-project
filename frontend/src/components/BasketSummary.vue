@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {Observer} from 'mobx-vue-lite'
+import Button from './Button.vue'
 import {useStore} from "@/stores/store";
 import {computed} from "vue";
 
@@ -32,6 +33,13 @@ const store = useStore()
         <div class="w-full mt-1">
           <span class="text-xs leading-3 tracking-tight">Cena je sa uključenim PDV-om</span>
         </div>
+        <div class="w-full mt-8">
+          <Button
+              @click="store.plati">
+            Plati
+          </Button>
+        </div>
+        <div v-if="store.paymentError" class="w-full text-red-600 bg-red-200 border-red-300 rounded-xl border p-4 mt-8">Greška pri pravljenju narudžbine.</div>
       </div>
     </div>
   </Observer>

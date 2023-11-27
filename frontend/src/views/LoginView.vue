@@ -2,7 +2,7 @@
 import {ref} from "vue";
 
 import InputField from "@/components/InputField.vue";
-import LoginButton from "@/components/LoginButton.vue";
+import LoginButton from "@/components/Button.vue";
 import {Observer} from 'mobx-vue-lite';
 import {useStore} from "@/stores/store";
 import {useRouter} from "vue-router";
@@ -39,10 +39,10 @@ const authenticate = async () => {
   }
 
   loadingIndicator.value = true
-    const response = await window.fetch(`${import.meta.env.VITE_API_URL}/auth/login`, requestConfig)
+  const response = await window.fetch(`${import.meta.env.VITE_API_URL}/auth/login`, requestConfig)
 
   if (response.ok) {
-    const token = response.json().then((res) => res.token || undefined)
+    const token = await response.json().then((res) => res.token || undefined)
 
     store.value.setAuthToken(token)
     loginSuccessful.value = true
@@ -70,7 +70,9 @@ const authenticate = async () => {
                   type="password" @submit="authenticate"></InputField>
 
       <LoginButton :class="{shaking: buttonShaking}" @click="authenticate" :spinning="loadingIndicator"
-                   :login-succesful="loginSuccessful"></LoginButton>
+                   :login-succesful="loginSuccessful" login-width>
+        Prijavi se na nalog!
+      </LoginButton>
       <div
           class="py-3 px-4 mt-4 border rounded border-red-300 bg-red-100 text-red-400 rounded-l h-16 flex flex-col justify-center"
           :class="{'invisible': !errorMessage}">

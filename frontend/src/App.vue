@@ -17,7 +17,7 @@ const router = useRouter()
       <template #default>
 
         <Observer>
-          <LoggedInLayout v-if="store.auth.token && router.currentRoute.value.path !== '/'">
+          <LoggedInLayout v-if="store.auth.token !== '' && router.currentRoute.value.path !== '/'">
             <RouterView/>
           </LoggedInLayout>
           <RouterView v-else></RouterView>

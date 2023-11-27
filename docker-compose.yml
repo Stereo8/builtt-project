@@ -1,13 +1,19 @@
 version: '3'
+
+include:
+  - path: ./backend/docker-compose.yml
+
 services:
   web:
     build: ./frontend
     environment:
       NODE_ENV: production
-      VITE_API_URL: http://backend:8000
+      VITE_API_URL: http://localhost:8000
     ports:
       - "5137:5137"
-  backend:
-    build: ./backend
-    ports:
-      - "8000:8000"
+    depends_on:
+      - laravel.test
+
+networks:
+  sail:
+    driver: bridge

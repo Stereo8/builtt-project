@@ -6,6 +6,7 @@ import LoginButton from "@/components/Button.vue";
 import {Observer} from 'mobx-vue-lite';
 import {useStore} from "@/stores/store";
 import {useRouter} from "vue-router";
+import { useCookies } from '@vueuse/integrations/useCookies'
 
 const email = ref('')
 const password = ref('')
@@ -17,6 +18,7 @@ const loginSuccessful = ref(false)
 
 const store = useStore()
 const router = useRouter()
+const cookies = useCookies()
 
 const showError = (message) => {
   buttonShaking.value = true
@@ -28,12 +30,20 @@ const showError = (message) => {
   }, 5000)
 }
 
+const res = await window.fetch(`${import.meta.env.VITE_API_URL.split('/api')[0]}/sanctum/csrf-cookie`, {
+  method: 'GET', credentials: 'include',
+})
+
+store.value.setCsrfToken(cookies.get('XSRF-TOKEN'))
+
 const authenticate = async () => {
   const requestConfig: RequestInit = {
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'X-XSRF-TOKEN': store.value.auth.csrf
     },
+    credentials: 'include',
     method: 'POST',
     body: JSON.stringify({email: email.value, password: password.value})
   }

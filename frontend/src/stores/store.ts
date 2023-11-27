@@ -1,15 +1,18 @@
 import {createGlobalObservable, useLocalObservable} from 'mobx-vue-lite'
 import type {Product, WithQuantity} from "@/types/product";
 import {useRouter} from "vue-router";
+import { useCookies } from '@vueuse/integrations/useCookies'
 
 
 export const useStore = createGlobalObservable(() => {
     return useLocalObservable(() => {
         const router = useRouter()
+        const cookies = useCookies()
 
         return {
             auth: {
-                token: ''
+                token: '',
+                csrf: ''
             },
             basket: new Array<Product & WithQuantity>(),
             get ukupno() {
@@ -28,6 +31,9 @@ export const useStore = createGlobalObservable(() => {
             paymentError: false,
             setAuthToken(token) {
                 this.auth.token = token
+            },
+            setCsrfToken(token) {
+                this.auth.csrf = token
             },
             addProductToBasket(p: Product & WithQuantity) {
                 const productInBasket = this.basket.find((product) => product.id === p.id)
@@ -64,9 +70,11 @@ export const useStore = createGlobalObservable(() => {
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
-                        'Authorization': `Bearer ${this.auth.token}`
+                        'Authorization': `Bearer ${this.auth.token}`,
+                        'X-XSRF-TOKEN': this.auth.csrf
                     },
                     method: 'POST',
+                    credentials: 'include',
                     body: payload
                 }
 

@@ -13,7 +13,3 @@ services:
       - "5137:5137"
     depends_on:
       - laravel.test
-
-networks:
-  sail:
-    driver: bridge

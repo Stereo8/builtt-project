@@ -74,7 +74,7 @@ export const useStore = createGlobalObservable(() => {
                     const response = await fetch(`${import.meta.env.VITE_API_URL}/order`, requestConfig).then(r => r.json())
                     if (response.status === 'ok') {
                         const orderId = response.data.id
-                        // await router.push(`/order/${orderId}`)
+                        await router.push(`/narudzbina/${orderId}`)
                     } else {
                         this.paymentError = true
                     }

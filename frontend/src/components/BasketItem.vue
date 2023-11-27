@@ -6,7 +6,7 @@ import CartIcon from "@/assets/basket.svg";
 import WhiteCheckIcon from "@/assets/white-check.svg";
 import {Observer} from 'mobx-vue-lite'
 
-const props = defineProps<Product & WithQuantity>()
+const props = defineProps<Product & WithQuantity & { hideControls?: boolean }>()
 const emits = defineEmits(['delete', 'add', 'subtract'])
 const imgSrc = `${import.meta.env.VITE_CDN_URL}/${props.productImageFileName}`
 
@@ -28,7 +28,7 @@ const imgSrc = `${import.meta.env.VITE_CDN_URL}/${props.productImageFileName}`
           <div>{{ props.packSize }}</div>
           <div v-if="props.quantity > 1" class="mt-2 text-gray-400">{{ `${props.price - props.discount} RSD po kom.` }}</div>
           <div class="flex-grow"></div>
-          <div class="flex items-center mt-4">
+          <div v-if="!props.hideControls" class="flex items-center mt-4">
             <div
                 class="bg-white rounded-full w-24 h-9 flex justify-around items-center border-black border">
               <img :src="MinusIcon" alt="-" class="w-3.5 cursor-pointer" @click="emits('subtract')">

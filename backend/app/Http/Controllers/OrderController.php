@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function createOrder(Request $request) {
+    public function createOrder(Request $request)
+    {
         $payload = $request->validate([
             'basketContents' => ['required'],
         ]);
@@ -26,7 +27,7 @@ class OrderController extends Controller
         $order->userId = $userId;
         $order->basketContents = json_encode(array_map(function ($item) {
             $p = Product::where(['id' => $item['id']])->first();
-            return ['id' => $p->id, 'price' => ($p->price - $p->discount) * $item['quantity']];
+            return ['id' => $p->id, 'name' => $p->name, 'price' => $p->price, 'discount' => $p->discount, 'packSize' => $p->packSize, 'productImageFileName' => $p->productImageFileName, 'quantity' => $item['quantity']];
         }, $payload['basketContents']));
         $order->shippingAddress = 'Ulica Hardkodovana 17';
         $order->billingAddress = 'Ulica Hardkodovana 17';
@@ -35,7 +36,8 @@ class OrderController extends Controller
         return response()->json(['status' => 'ok', 'data' => $order]);
     }
 
-    public function getOrder(Request $request) {
-
+    public function getOrder(string $id)
+    {
+        return response()->json(['status' => 'ok', 'data' => Order::where(['id' => $id])->first()]);
     }
 }

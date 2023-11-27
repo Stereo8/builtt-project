@@ -25,8 +25,8 @@ const imgSrc = `${import.meta.env.VITE_CDN_URL}/${props.productImageFileName}`
         <div
             class="flex flex-col flex-grow-[10] min-h-[9rem] min-w-[8rem] sm:min-w-[12rem] max-w-[12rem] sm:max-w-[29rem]">
           <div class="font-bold text-lg">{{ props.name }}</div>
-          <div>750g</div>
-          <div v-if="props.quantity > 1" class="mt-2 text-gray-400">{{ `${props.price} RSD po kom.` }}</div>
+          <div>{{ props.packSize }}</div>
+          <div v-if="props.quantity > 1" class="mt-2 text-gray-400">{{ `${props.price - props.discount} RSD po kom.` }}</div>
           <div class="flex-grow"></div>
           <div class="flex items-center mt-4">
             <div

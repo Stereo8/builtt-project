@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('price');
             $table->string('productImageFileName');
             $table->integer('discount');
+            $table->string('packSize');
         });
     }
 

@@ -20,7 +20,8 @@ class ProductFactory extends Factory
             'name' => fake()->words(fake()->numberBetween(1, 5), true),
             'price' => fake()->numberBetween(270, 1399),
             'productImageFileName' => fake()->numberBetween(1, 10).'.jpg',
-            'discount' => fake()->optional(0.20, 0)->numberBetween(50, 270)
+            'discount' => fake()->optional(0.20, 0)->numberBetween(50, 270),
+            'packSize' => fake()->randomElement(['250g', '500g', '750g', '1kg', '2,5kg'])
         ];
     }
 }

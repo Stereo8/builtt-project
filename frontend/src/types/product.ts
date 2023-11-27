@@ -4,6 +4,7 @@ export type Product = {
     productImageFileName: string,
     id: number,
     discount?: number,
+    packSize: string,
 }
 
 export type WithQuantity = {
